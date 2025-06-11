@@ -1,3 +1,7 @@
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 from flask import Flask, render_template, request
 import requests
 
@@ -14,13 +18,13 @@ def index():
     return render_template("index.html", weather=weather, news=news)
 
 def get_weather(city):
-    api_key = "13e2e91ca5585170bfc25294bde29a16"
+    api_key = os.getenv("WEATHER_API_KEY")
     url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric&lang=ru"
     response = requests.get(url)
     return response.json()
 
 def get_news():
-    api_key = "01570c09ab3a4e3fbc4082e3921d48f1"
+    api_key = os.getenv("NEWS_API_KEY")
     url = f"https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey={api_key}"
     response = requests.get(url)
     return response.json().get("articles", [])
