@@ -23,20 +23,29 @@
         </form>
 
         <!-- Результаты -->
-        <div class="result mt-5">
-            {% if weather %}
-                <div class="card">
-                    <div class="card-body">
-                        <h3 class="card-title text-center">Погода в {{ weather["name"] }}</h3>
-                        <p class="card-text">
-                            <strong>Температура:</strong> {{ weather["main"]["temp"] }}°C<br>
-                            <strong>Погода:</strong> {{ weather["weather"][0]["description"] }}
-                        </p>
-                    </div>
+        {% if weather and "main" in weather and "weather" in weather %}
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title text-center">Погода в {{ weather["name"] }}</h3>
+                    <p class="card-text">
+                        <strong>Температура:</strong> {{ weather["main"]["temp"] }}°C<br>
+                        <strong>Погода:</strong> {{ weather["weather"][0]["description"] }}
+                    </p>
                 </div>
+            </div>
+        {% endif %}
+        </div>
+
+        <div class="result mt-5">
+            {% if news %}
+                <h2>Новости:</h2>
+                <ul>
+                    {% for article in news %}
+                        <li><a href="{{ article['url'] }}"> {{ article['title'] }} </a></li>
+                    {% endfor %}
+                </ul>
             {% endif %}
         </div>
-    </div>
 
     <!-- Подключение Bootstrap JS (опционально, для функциональности, например, всплывающих окон) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
