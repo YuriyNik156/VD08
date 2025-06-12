@@ -1,6 +1,14 @@
 from flask import Flask, render_template, request
 import requests
 import random
+import os
+from dotenv import load_dotenv
+from pathlib import Path
+
+dotenv_path = Path(__file__).resolve().parents[1] / ".env"  # подняться на уровень выше
+load_dotenv(dotenv_path=dotenv_path)
+
+print("DEBUG: QUOTES_API_KEY =", os.getenv("QUOTES_API_KEY"))
 
 app = Flask(__name__)
 
@@ -27,7 +35,7 @@ def quotes():
     return render_template("quotes.html", quote=quote, author=author)
 
 def get_quotes_ninjas():
-    api_key = "iQi0OPjsYrgoVEzSVXCkXw==NFjPaM74Im7vWfoP"
+    api_key = os.getenv("QUOTES_API_KEY")
     url = "https://api.api-ninjas.com/v1/quotes"
     headers = {"X-Api-Key": api_key}
     response = requests.get(url, headers=headers)
