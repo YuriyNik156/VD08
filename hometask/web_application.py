@@ -3,10 +3,8 @@ import requests
 import random
 import os
 from dotenv import load_dotenv
-from pathlib import Path
 
-dotenv_path = Path(__file__).resolve().parents[1] / ".env"  # подняться на уровень выше
-load_dotenv(dotenv_path=dotenv_path)
+load_dotenv()
 
 print("DEBUG: QUOTES_API_KEY =", os.getenv("QUOTES_API_KEY"))
 
